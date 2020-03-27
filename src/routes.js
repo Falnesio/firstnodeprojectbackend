@@ -94,3 +94,8 @@ routes.get("/user", (request, response) => {
         classe: 'Muita'
     });
 });
+
+/**
+ * exportar rotas para index.js
+ */
+module.exports = routes;
