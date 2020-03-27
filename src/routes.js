@@ -1,4 +1,8 @@
 const express = require('express');
+// const crypto = require('crypto');
+const OngController = require('./controllers/OngController');
+
+//const connection = require('./database/connection');
 
 const routes = express.Router();
 
@@ -68,7 +72,7 @@ const routes = express.Router();
 /**
  * Receber a criação de um novo usuário com informações do body de um post
  */
-routes.post("/user", (request, response) => {
+/*routes.post("/user", (request, response) => {
     // Para registrar tudo que é requisitado, guardaremos as requisições em params
     const body = request.body;
     // Para retornar no console o que existe em params faremos:
@@ -82,10 +86,10 @@ routes.post("/user", (request, response) => {
         classe: 'Muita'
     });
 
-});
+});*/
 
 
-routes.get("/user", (request, response) => {
+/*routes.get("/user", (request, response) => {
     //return response.send('Hello world!');
     return response.json({
         evento: 'Semana OmniStack 11.0',
@@ -93,7 +97,38 @@ routes.get("/user", (request, response) => {
         montaria: 'Chae',
         classe: 'Muita'
     });
+});*/
+
+routes.get("/ongs", OngController.index);/*async (request, response) => {
+    const ongs = await connection('ongs').select('*');
+
+    return response.json(ongs);
 });
+ */
+
+routes.post("/ongs", OngController.create); /*async (request, response) => {
+
+    //const data = request.body;
+    const { name, email, whatsapp, city, uf } = request.body;
+
+    const id = crypto.randomBytes(4).toString('HEX');
+
+    //console.log(data);
+
+    await connection('ongs').insert({
+        id,
+        name,
+        email,
+        whatsapp,
+        city,
+        uf,
+    });
+
+    return response.json({
+        id
+    });
+});
+*/
 
 /**
  * exportar rotas para index.js

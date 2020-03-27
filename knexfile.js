@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './src/database/bd.sqlite'
+      filename: './src/database/db.hero.sqlite'
     },
     migrations: {
       directory: './src/database/migrations'
