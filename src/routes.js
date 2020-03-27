@@ -1,16 +1,6 @@
 const express = require('express');
 
-const app = express();
-
-/**
- * Dica: "npm install nodemon -D" serve para não ter que reiniciar
- * o "node index.js" toda vez que se faz alguma alteração ao "npm start"
- *
- * Avisar que iremos usar json para receber os corpos de json
- * para entender que as coisas virão em json, para transformar json em
- * javascript
- */
-app.use(express.json());
+const routes = express.Router();
 
 /**
  * Acionar servidor  > node index.js
@@ -38,7 +28,7 @@ app.use(express.json());
 /**
  * request recebe a rota completa
  */
-/*app.post("/user", (request, response) => {
+/*routes.post("/user", (request, response) => {
     // Para registrar tudo que é requisitado, guardaremos as requisições em params
     const params = request.query;
     // Para retornar no console o que existe em params faremos:
@@ -59,7 +49,7 @@ app.use(express.json());
  * Assim, ao usar o insomnia pra buscar http://localhost:3333/user/1
  * obtemos a resposta adequada ao número 1.
  */
-/*app.post("/user/:id", (request, response) => {
+/*routes.post("/user/:id", (request, response) => {
     // Para registrar tudo que é requisitado, guardaremos as requisições em params
     const params = request.params;
     // Para retornar no console o que existe em params faremos:
@@ -78,7 +68,7 @@ app.use(express.json());
 /**
  * Receber a criação de um novo usuário com informações do body de um post
  */
-app.post("/user", (request, response) => {
+routes.post("/user", (request, response) => {
     // Para registrar tudo que é requisitado, guardaremos as requisições em params
     const body = request.body;
     // Para retornar no console o que existe em params faremos:
@@ -95,7 +85,7 @@ app.post("/user", (request, response) => {
 });
 
 
-app.get("/user", (request, response) => {
+routes.get("/user", (request, response) => {
     //return response.send('Hello world!');
     return response.json({
         evento: 'Semana OmniStack 11.0',
@@ -104,6 +94,3 @@ app.get("/user", (request, response) => {
         classe: 'Muita'
     });
 });
-
-app.listen(3333);
-
