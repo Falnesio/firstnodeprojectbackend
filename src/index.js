@@ -1,5 +1,6 @@
 const express = require('express');
-const routes = require('./routes')
+const cors = require('cors');
+const routes = require('./routes');
 
 const app = express();
 
@@ -11,6 +12,9 @@ const app = express();
  * para entender que as coisas virão em json, para transformar json em
  * javascript
  */
+app.use(cors({
+    //origin: 'http://urldosite.com'
+}));
 app.use(express.json());
 app.use(routes);
 
