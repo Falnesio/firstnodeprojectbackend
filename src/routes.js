@@ -1,5 +1,7 @@
 const express = require('express');
+const { celebrate, Segments, Joi } = require('celebrate');
 // const crypto = require('crypto');
+
 const OngController = require('./controllers/OngController');
 const IncidentController = require('./controllers/IncidentController');
 const ProfileController = require('./controllers/ProfileController');
@@ -109,7 +111,15 @@ routes.get("/ongs", OngController.index);/*async (request, response) => {
 });
  */
 
-routes.post("/ongs", OngController.create); /*async (request, response) => {
+routes.post("/ongs",  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        whatsapp: Joi.number().required(),
+        city: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+    })
+}), OngController.create); /*async (request, response) => {
 
     //const data = request.body;
     const { name, email, whatsapp, city, uf } = request.body;
@@ -135,11 +145,23 @@ routes.post("/ongs", OngController.create); /*async (request, response) => {
 
 routes.post('/sessions', SessionController.create);
 
-routes.get('/incidents', IncidentController.index);
+routes.get('/incidents', celebrate({
+    [Segments.QUERY]: Joi.object({
+        page: Joi.number(),
+    }).unknown(),
+}), IncidentController.index);
 routes.post('/incidents', IncidentController.create);
-routes.delete('/incidents/:id', IncidentController.delete);
+routes.delete('/incidents/:id',celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.number().required(),
+    }),
+}), IncidentController.delete);
 
-routes.get('/profile', ProfileController.index);
+routes.get('/profile', celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+}),ProfileController.index);
 /**
  * exportar rotas para index.js
  */
