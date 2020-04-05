@@ -1,5 +1,7 @@
 const app = require('./app');
 
+appURL = 3333;
+
 app.listen(
-    3333
+    appURL
 );
