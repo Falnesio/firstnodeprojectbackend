@@ -12,7 +12,7 @@ const SessionController = require('./controllers/SessionController');
 const routes = express.Router();
 
 /**
- * Acionar servidor  > node index.js
+ * Acionar servidor  > node app.js
  *
  * Métodos HTTP:
  *
@@ -115,7 +115,7 @@ routes.post("/ongs",  celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
         email: Joi.string().required().email(),
-        whatsapp: Joi.number().required(),
+        whatsapp: Joi.string().required().min(10).max(13),
         city: Joi.string().required(),
         uf: Joi.string().required().length(2),
     })
@@ -163,6 +163,6 @@ routes.get('/profile', celebrate({
     }).unknown(),
 }),ProfileController.index);
 /**
- * exportar rotas para index.js
+ * exportar rotas para app.js
  */
 module.exports = routes;
